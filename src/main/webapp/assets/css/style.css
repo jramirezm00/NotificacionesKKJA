@@ -1,0 +1,285 @@
+/*Default button style*/
+button.clickMe{
+    outline: none;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 15px 20px 15px 20px;
+    border: 2px #d8868a solid;
+    border-top: none;
+    border-radius: 5px;
+    color: #FFFFFF;
+    background-color: #e78b90;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+/* When the mouse is over the button*/
+button.clickMe:hover{
+    background: #4c4a4b;
+    opacity: 1;
+    border: 2px #FFFFFF solid;
+
+    /* transform: translate(X,Y); For animations only, move around the element*/
+    transform: translate(0,40px);
+
+    /* transform: scale(X,Y); X ^ Y = number; Escala todo multiplicandolo por el numero que se ingrese*/
+    transform: scale(2);
+
+    /* transform-origin: X Y;
+       Lugar desde donde se va a realizar el "transform", normalmente es en el centro del elemento(div,p,a,button,etc)
+       Se puede utilizar en ves de numeros, palabras (left, right, top, bottom, center) */
+    transform-origin: center bottom;
+
+    transition-duration: 1s;
+}
+/* When the button is Clicked*/
+button.clickMe:active{
+    background: #ffffff;
+    color: #4c4a4b;
+    opacity: 1;
+    border: 1px #FFFFFF solid;
+}
+/* When the button is selected with tab or after the button has been clicked*/
+button.clickMe:focus{
+    box-shadow: none;
+    color: #4a4b4c;
+    border: 2px #4a4b4c solid;
+}
+
+/*Galery css*/
+
+div.item img{
+    width: 100%;
+    height: 210px;
+}
+
+div.item {
+    position: relative;
+    float: left;
+    overflow: hidden;
+    margin: 10px 1%;
+    width: 100%;
+    background: #000000;
+    text-align: center;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+
+div.item * {
+    box-sizing: border-box;
+}
+
+div.item img {
+    max-width: 100%;
+    vertical-align: top;
+    height: 210px;
+}
+
+div.item i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    font-size: 34px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    background: #ffffff;
+}
+
+div.item a {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+}
+
+div.item.blue {
+    background-color: #34495e;
+}
+div.item.blue i {
+    color: #34495e;
+}
+div.item.red {
+    background-color: #e74c3c;
+}
+div.item.red i {
+    color: #e74c3c;
+}
+
+div.item.green {
+    background-color: #16a085;
+}
+div.item.green i {
+    color: #16a085;
+}
+
+div.item:hover img {
+    opacity: 0.3;
+    filter: grayscale(100%);
+}
+
+div.item * {
+    transition: all .35s ease-in-out;
+}
+
+div.item i {
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 300ms 0ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+
+div.item:hover i {
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform 300ms 100ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/*Sunset css*/
+/* Sunset background */
+.sunset{
+    background-color: #30349B;
+    opacity: 0.7;
+}
+.layer-container{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-position: bottom center;
+    background-repeat: repeat-x;
+}
+.layer-1 {
+    z-index: 5;
+    background-image: url('http://i.imgur.com/Ra2bzmb.png');
+    height: 750px;
+}
+.layer-2 {
+    z-index: 10;
+    background-image: url('http://i.imgur.com/jSOo9SK.png');
+    height: 790px;
+}
+.layer-3 {
+    z-index: 15;
+    background-image: url('http://i.imgur.com/DOZRBDj.png');
+    height: 840px;
+}
+.layer-4 {
+    z-index: 20;
+    background-image: url('http://i.imgur.com/JbSR9JY.png');
+    height: 960px;
+}
+.layer-5 {
+    z-index: 25;
+    background-image: url('http://i.imgur.com/Ti2mNxd.png');
+    height: 1100px;
+}
+
+/* Sunset transitions */
+div .sunset-space{
+    margin: 0 0 0 0;
+    background-color: #30349B;
+    animation-name: cycleskycolors;
+    animation-duration: 50s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+}
+
+.sun {
+    background: #f1c40f;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    transform-origin: center;
+    animation-name: sunmotion;
+    animation-duration: 60s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+}
+
+@keyframes sunmotion {
+    0% {
+        transform: translate(-200px, 400px);
+        background: #d35400;
+    }
+    25% {
+        transform: translate(330px, 200px);
+        background: #f1c40f;
+    }
+    50% {
+        transform: translate(860px, 150px);
+    }
+    75% {
+        transform: translate(1390px, 200px);
+        background: #f1c40f;
+    }
+    100% {
+        transform: translate(1920px, 00px);
+        background: #e74c3c;
+    }
+}
+
+@keyframes cycleskycolors {
+    0% {
+        background: #30349B;
+    }
+    10% {
+        background: #D71563;
+    }
+    20% {
+        background: #FF4F57;
+    }
+    30% {
+        background: #FFD800;
+    }
+    40% {
+        background: #82BBF8;
+    }
+    50% {
+        background: #82BBF8;
+    }
+    60% {
+        background: #FFD800;
+    }
+    70%{
+        background: #FF4F57;
+    }
+    80% {
+        background: #D71563;
+    }
+    90% {
+        background: #30349B;
+    }
+    100% {
+        background: #30349B;
+    }
+}
+
+/*Other things latina*/
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%; 
+}
+
+.pageContainer {
+    position: relative;
+    min-height: 100vh;
+}
+
+.section .title-area-latina {
+    max-width: 760px;
+    margin: 0 auto 0 auto;
+    display: block;
+    padding: 0 15px;
+    text-align: center;
+}
+
+.section{
+    min-height: 90vh !important;
+}
+
+.btnNav{
+    font-size: 12px !important;
+}

@@ -1,12 +1,218 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      >
+
     <h:head>
-        <title>Facelet Title</title>
+        <meta charset="utf-8" />
+        <link rel="apple-touch-icon" sizes="76x76" href="/NotificacionesKKAJ/assets/img/apple-icon.png"/>
+        <link rel="icon" type="image/png" sizes="96x96" href="/NotificacionesKKAJ/assets/img/favicon.png"/>
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+
+        <link href="/NotificacionesKKAJ/assets/css/bootstrap.css" rel="stylesheet" />
+        <link href="/NotificacionesKKAJ/assets/css/gaia.css" rel="stylesheet"/>
+        <!--     Fonts and icons     -->
+        <link href="https://fonts.googleapis.com/css?family=Cambo|Poppins:400,600" rel="stylesheet" type="text/css"/>
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="/NotificacionesKKAJ/assets/css/fonts/pe-icon-7-stroke.css" rel="stylesheet"/>
+
+        <!--     My shit     -->
+        <link href="/NotificacionesKKAJ/assets/css/style.css" rel="stylesheet"/>
+        <style>
+            .cuadrosSign{
+                height: 75px;
+            }
+            .signUp{
+                text-decoration: underline;
+            }
+        </style>
     </h:head>
+
     <h:body>
-        <h1>HOLA ALEJANDRO</h1>
+
+        <nav class="navbar navbar-default navbar-transparent navbar-fixed-top" color-on-scroll="200">
+            <!-- if you want to keep the navbar hidden you can add this class to the navbar "navbar-burger"-->
+            <div class="container">
+                <div class="navbar-header">
+                    <button id="menu-toggle" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar bar1"></span>
+                        <span class="icon-bar bar2"></span>
+                        <span class="icon-bar bar3"></span>
+                    </button>
+                    <h:link class="navbar-brand">
+                        MAIL-KEAJ
+                    </h:link>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+
+        <div class="section section-header">
+            <div class="parallax filter">
+                <div class="image"
+                     style="background-image: url('/NotificacionesKKAJ/assets/img/Mail1.jpg')">
+                </div>
+                <div class="container">
+                    <div class="content">
+                        <div class="title-area">
+                            <h1 class="title-modern">MAIL-KEAJ</h1>
+                            <h2>Send your mail, just <span onclick="focusSignUp()" class="signUp" style="cursor: pointer">sign up!</span></h2>
+                            <div class="separator line-separator">✉</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="title-area">
+                        <h2>Our Services</h2>
+                        <div class="separator separator-danger">✉</div>
+                        <p class="description">A platform for sending scheduled emails, 
+                            coupled to a Continuous Integration System.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="info-icon">
+                            <div class="icon text-danger">
+                                <i class="pe-7s-cash"></i>
+                            </div>
+                            <h3>Cost</h3>
+                            <p class="description">
+                                It offers more effective time and various schedules 
+                                for sending the emails you intend to send.
+
+                                The application is free for the users of the company.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="section section-our-team-freebie" id="sign">
+            <div class="parallax filter filter-color-black">
+                <div class="image" style="background-image:url('/NotificacionesKKAJ/assets/img/mail2.jpg')">
+                </div>
+                <div class="container">
+                    <div class="content">
+                        <div class="row">
+                            <div class="title-area">
+                                <h2>Check It Out</h2>
+                                <div class="separator separator-danger">✉</div>
+                                <p class="description">Sign up or sign in</p>
+                            </div>
+                        </div>
+                        <div class="team">
+                            <div class="row">
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <div class="card card-member">
+                                                <div class="content">
+                                                    <div style="color: #777777">
+                                                        <h2>Sign Up</h2>
+                                                    </div>
+                                                    <div class="division">
+                                                        <div class="line l"></div>
+                                                        <span>or</span>
+                                                        <div class="line r"></div>
+                                                    </div>
+                                                    <h:form>
+                                                        <div class="form loginBox">
+                                                            <p:inputText id="nameRegister" type="text" placeholder="Name" value="#{signUpController.nombre}"/>
+                                                            <p:inputText id="lastNameRegister" class="form-control" type="text" placeholder="Lastname" value="#{signUpController.apellido}"/>
+                                                            <p:inputText id="emailRegister" class="form-control" type="text" placeholder="Email" value="#{signUpController.correo}"/>
+                                                            <p:inputText id="passwordRegister" class="form-control" type="password" placeholder="Password" value="#{signUpController.contra}"/>
+                                                            <p:inputText id="password_confirmation" class="form-control" type="password" placeholder="Repeat Password"/>
+                                                            <h:commandButton id="signupId" value="Signup" class="btn btn-danger btn-fill " action="#{signUpController.signUp()}" />
+                                                        </div>
+                                                    </h:form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="card card-member">
+                                                <div class="content">
+                                                    <div style="color: #777777">
+                                                        <h2>Sign In</h2>
+                                                    </div>
+                                                    <div class="division">
+                                                        <div class="line l"></div>
+                                                        <span>or</span>
+                                                        <div class="line r"></div>
+                                                    </div>
+                                                    <h:form>
+                                                        <div class="form loginBox" style="display: block;">
+                                                            <p:inputText id="username" class="form-control" type="text" placeholder="Username" value="#{loginController.user}"/>
+                                                            <p:inputText id="password" class="form-control" type="password" placeholder="Password" value="#{loginController.pass}"/>
+                                                            <h3 style="padding: 15px"><h:link outcome="cambiarContrasenna?faces-redirect=true">Change my password</h:link>></h3>
+                                                            <h:commandButton id="loginId" class="btn btn-danger btn-fill" value="Login" action="#{loginController.login()}"/>
+                                                            <p:growl life="3000" id="growl" showDetail="true"></p:growl>
+                                                        </div> 
+                                                    </h:form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <footer class="footer-big footer-color-black">
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="copyright">
+                        <span style="float:left;padding-bottom:25px">
+                            © 2019 - KKAJ
+                        </span>
+                        <span style="float:right;padding-bottom:25px">
+                            Universidad Latina de Costa Rica
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!--   core js files    -->
+        <script src="/NotificacionesKKAJ/assets/js/jquery.min.js" type="text/javascript"></script>
+        <script src="/NotificacionesKKAJ/assets/js/bootstrap.js" type="text/javascript"></script>
+
+        <!--  js library for devices recognition -->
+        <script type="text/javascript" src="/NotificacionesKKAJ/assets/js/modernizr.js"></script>
+
+        <!--   file where we handle all the script from the Gaia - Bootstrap Template   -->
+        <script type="text/javascript" src="/NotificacionesKKAJ/assets/js/gaia.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+        <script>
+                                function focusSignUp() {
+                                    $('html, body').animate({scrollTop: $("#sign").offset().top}, 'slow');
+                                }
+        </script>
+
     </h:body>
+
 </html>
 
