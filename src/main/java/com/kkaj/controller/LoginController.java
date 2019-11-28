@@ -27,7 +27,7 @@ public class LoginController implements Serializable {
 
     private int id;
 
-    //hola mundo
+    //hola mundooooooo
     public LoginController() {
 
     }
