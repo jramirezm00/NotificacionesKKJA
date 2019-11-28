@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6 col-md-offset-3">
                         <div class="info-icon">
                             <div class="icon text-danger">
                                 <i class="pe-7s-cash"></i>
@@ -118,21 +118,15 @@
                             <div class="row">
                                 <div class="col-md-10 col-md-offset-1">
                                     <div class="row">
-
                                         <div class="col-md-6">
                                             <div class="card card-member">
                                                 <div class="content">
                                                     <div style="color: #777777">
                                                         <h2>Sign Up</h2>
                                                     </div>
-                                                    <div class="division">
-                                                        <div class="line l"></div>
-                                                        <span>or</span>
-                                                        <div class="line r"></div>
-                                                    </div>
                                                     <h:form>
                                                         <div class="form loginBox">
-                                                            <p:inputText id="nameRegister" type="text" placeholder="Name" value="#{signUpController.nombre}"/>
+                                                            <p:inputText id="nameRegister" class="form-control" type="text" placeholder="Name" value="#{signUpController.nombre}"/>
                                                             <p:inputText id="lastNameRegister" class="form-control" type="text" placeholder="Lastname" value="#{signUpController.apellido}"/>
                                                             <p:inputText id="emailRegister" class="form-control" type="text" placeholder="Email" value="#{signUpController.correo}"/>
                                                             <p:inputText id="passwordRegister" class="form-control" type="password" placeholder="Password" value="#{signUpController.contra}"/>
@@ -143,23 +137,16 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="col-md-6">
                                             <div class="card card-member">
                                                 <div class="content">
                                                     <div style="color: #777777">
                                                         <h2>Sign In</h2>
                                                     </div>
-                                                    <div class="division">
-                                                        <div class="line l"></div>
-                                                        <span>or</span>
-                                                        <div class="line r"></div>
-                                                    </div>
                                                     <h:form>
                                                         <div class="form loginBox" style="display: block;">
                                                             <p:inputText id="username" class="form-control" type="text" placeholder="Username" value="#{loginController.user}"/>
                                                             <p:inputText id="password" class="form-control" type="password" placeholder="Password" value="#{loginController.pass}"/>
-                                                            <h3 style="padding: 15px"><h:link outcome="cambiarContrasenna?faces-redirect=true">Change my password</h:link>></h3>
                                                             <h:commandButton id="loginId" class="btn btn-danger btn-fill" value="Login" action="#{loginController.login()}"/>
                                                             <p:growl life="3000" id="growl" showDetail="true"></p:growl>
                                                         </div> 
