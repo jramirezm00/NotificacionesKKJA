@@ -74,7 +74,7 @@ public class CorreoDao implements IDao<Correo> {
         List<Correo> correos = new ArrayList<>();
         Correo correo = null;
         try {
-            ps = conn.prepareStatement("SELECT usuario.nombre AS usuario, correo.asunto, correo.cuerpo, correo.destinatario "
+            ps = conn.prepareStatement("SELECT usuario.correo AS usuario, correo.asunto, correo.cuerpo, correo.destinatario "
                     + "FROM NOTIFICACIONES.Correo correo INNER JOIN NOTIFICACIONES.Usuario usuario ON correo.idUsuario = usuario.idUsuario "
                     + "WHERE correo.idUsuario = ?;");
             ps.setInt(1, idUsuario);

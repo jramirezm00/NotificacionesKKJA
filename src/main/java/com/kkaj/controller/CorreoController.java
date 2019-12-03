@@ -37,10 +37,17 @@ public class CorreoController implements Serializable {
 
     private CorreoDao correoDao = new CorreoDao();
 
-    public CorreoController() throws SQLException, ClassNotFoundException {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+    public CorreoController()  {
+         try {
+             HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         idUsuario = parseInt(request.getParameter("idUsuario"));
+       
         this.all(idUsuario);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
 
     }
 

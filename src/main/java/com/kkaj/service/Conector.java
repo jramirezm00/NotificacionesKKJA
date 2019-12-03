@@ -8,11 +8,11 @@ import java.sql.SQLException;
 
 public class Conector {
 
-    private final String DB_URL = "jdbc:mysql://localhost:3306/NOTIFICACIONES?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
+    private final String DB_URL = "jdbc:mysql://localhost:3306/notificaciones?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
 
     //Database credentials
-    private final String USER = "admin";
-    private final String PASS = "101000aj";
+    private final String USER = "root";
+    private final String PASS = "12345";
 
     private static Conector conector;
 

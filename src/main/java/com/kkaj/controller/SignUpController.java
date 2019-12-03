@@ -38,6 +38,7 @@ public class SignUpController implements Serializable {
             Usuario usuario = new Usuario();
             usuario.setNombre(this.nombre);
             usuario.setApellido(this.apellido);
+            usuario.setContrasena(this.contra);
             if (correo.matches(regex)) {
                 usuario.setCorreo(this.correo);
             } else {
@@ -46,7 +47,7 @@ public class SignUpController implements Serializable {
             }
             Integer validar = userDao.signUp(usuario);
             if (validar == 1) {
-                return "Login?faces-redirect=true";
+                return "index?faces-redirect=true";
             } else {
                 return "error";
             }
