@@ -1,6 +1,7 @@
 package com.kkaj.service;
 
 import com.kkaj.model.Correo;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +12,9 @@ import java.util.List;
 /**
  * @author kenneth Parrales
  */
-public class CorreoDao implements IDao<Correo> {
+public class CorreoDao implements IDao<Correo>, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final Conector conectorJDBC = Conector.getConector();
 
@@ -19,15 +22,20 @@ public class CorreoDao implements IDao<Correo> {
     public List<Correo> buscar() {
         Connection connectionDB = conectorJDBC.conectar();
         List<Correo> correos = new ArrayList<>();
+        Correo correo = null;
         try {
             String sql;
             sql = "SELECT * FROM correo correos WHERE correos.idUsuario;";
             PreparedStatement stmt = connectionDB.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                correos.add(new Correo(rs.getString("asunto"), rs.getString("cuerpo"),
-                        rs.getString("destinatario"), rs.getInt("idUsuario"),
-                        rs.getInt("idCorreo")));
+                correo = new Correo();
+                correo.setAsunto(rs.getString("asunto"));
+                correo.setCuerpo(rs.getString("cuerpo"));
+                correo.setDestinatario(rs.getString("destinatario"));
+                correo.setIdUsuario(rs.getInt("idUsuario"));
+                correo.setIdCorreo(rs.getInt("idCorreo"));
+                correos.add(correo);
             }
             conectorJDBC.cerrarConexion(connectionDB, stmt, rs);
         } catch (SQLException e) {

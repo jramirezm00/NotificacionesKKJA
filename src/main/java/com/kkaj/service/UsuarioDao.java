@@ -1,6 +1,7 @@
 package com.kkaj.service;
 
 import com.kkaj.model.Usuario;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +12,9 @@ import java.util.List;
 /**
  * @author kenneth Parrales
  */
-public class UsuarioDao implements IDao<Usuario> {
+public class UsuarioDao implements IDao<Usuario>, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final Conector conectorJDBC = Conector.getConector();
 

@@ -1,10 +1,14 @@
 package com.kkaj.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author kenneth Parrales
  */
-public class Correo {
+public class Correo implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private int idCorreo;
 
@@ -21,12 +25,10 @@ public class Correo {
     public Correo() {
     }
 
-    public Correo(String asunto, String cuerpo, String destinatario,
-            int idUsuario, int idCorreo) {
+    public Correo(String asunto, String cuerpo, String destinatario, int idUsuario) {
         this.asunto = asunto;
         this.cuerpo = cuerpo;
         this.destinatario = destinatario;
-        this.idCorreo = idCorreo;
         this.idUsuario = idUsuario;
     }
 

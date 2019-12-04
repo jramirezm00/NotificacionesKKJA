@@ -1,18 +1,21 @@
 package com.kkaj.service;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Conector {
+public class Conector implements Serializable {
 
-    private final String DB_URL = "jdbc:mysql://localhost:3306/notificaciones?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
+    private static final long serialVersionUID = 1L;
+    
+    private final String DB_URL = "jdbc:mysql://localhost:3306/NOTIFICACIONES?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
 
     //Database credentials
     private final String USER = "root";
-    private final String PASS = "12345";
+    private final String PASS = "101000aj";
 
     private static Conector conector;
 

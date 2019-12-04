@@ -5,17 +5,43 @@
  */
 package com.kkaj.controller;
 
+import com.kkaj.job.Emailjob;
 import com.kkaj.model.Correo;
 import com.kkaj.service.CorreoDao;
+import com.kkaj.servicio.ServicioCorreo;
 import java.io.Serializable;
 import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Properties;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.Email;
+import org.apache.commons.mail.SimpleEmail;
+import org.quartz.CronScheduleBuilder;
+import org.quartz.Job;
+import org.quartz.JobBuilder;
+import org.quartz.JobDetail;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.quartz.Scheduler;
+import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
+import org.quartz.impl.StdSchedulerFactory;
 
 /**
  *
@@ -37,30 +63,80 @@ public class CorreoController implements Serializable {
 
     private CorreoDao correoDao = new CorreoDao();
 
-    public CorreoController()  {
-         try {
-             HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        idUsuario = parseInt(request.getParameter("idUsuario"));
-       
-        this.all(idUsuario);
-            
+    private String tiempoSeleccionado;
+
+    private List<String> tiempos = new ArrayList<String>();
+
+    @ManagedProperty("#{loginController}")
+    private LoginController loginController = new LoginController();
+
+    public CorreoController() {
+        try {
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            idUsuario = parseInt(request.getParameter("idUsuario"));
+            this.all(idUsuario);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+    }
 
+    @PostConstruct
+    public void init() {
+        tiempos.add("30s");
+        tiempos.add("1min");
+        tiempos.add("5min");
     }
 
     public void all(int id) throws SQLException, ClassNotFoundException {
         this.correos = correoDao.correosUsuario(id);
     }
 
-    //ESTO NO DEBE DE SER UNA PANTALLA DEBE DE SER UN MENSAJE QUE DIGA SI SE ENVIO EL CORREO O NO!!!!
-    public String CrearCorreo() {
-        Correo correo = new Correo(this.asunto, this.cuerpo, this.destinatario, this.idUsuario, this.idCorreo);
-        correoDao.insert(correo);
-        //ESTO NO 
-        return "Enviado?faces-redirect=true";
+    public String crearCorreo() {
+        return "crearCorreo?faces-redirect=true&idUsuario= " + loginController.getUsuario().getId();
+    }
+
+    public String verCorreos() {
+        return "correos?faces-redirect=true&idUsuario=" + loginController.getUsuario().getId();
+    }
+
+    //Metodo para enviar un correo
+    public void enviarCorreo() {
+        ServicioCorreo servicio = new ServicioCorreo();
+        servicio.enviarCorreo(loginController.getUsuario(),this.asunto,this.cuerpo,this.destinatario);
+    }
+
+    public void correoProgramado() {
+        String cron = "";
+        System.out.println("SOY UN CORREO PROGRAMADO");
+        try {
+            if (this.tiempoSeleccionado.equalsIgnoreCase("30s")) {
+                System.out.println("ME VOY A EJECUTAR DENTRO DE 30s");
+                cron = "0/30 * * * * ?";
+            } else if (this.tiempoSeleccionado.equalsIgnoreCase("1min")) {
+                cron = "0 */1 * ? * *";
+            } else if (this.tiempoSeleccionado.equalsIgnoreCase("5min")) {
+                cron = "0 */5 * ? * *";
+            }
+
+            System.out.println(cron);
+
+            JobDetail job = JobBuilder.newJob(Emailjob.class).withIdentity("job", "group").build();
+
+            Trigger trigger = TriggerBuilder.newTrigger().withIdentity("cronTrigger", "group").withSchedule(CronScheduleBuilder.cronSchedule(cron)).build();
+
+            Scheduler scheduler = new StdSchedulerFactory().getScheduler();
+            scheduler.start();
+            scheduler.scheduleJob(job, trigger);
+
+            Thread.sleep(100000);
+
+            scheduler.shutdown();
+
+            System.out.println("YA TERMINE!");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public int getIdUsuario() {
@@ -117,6 +193,30 @@ public class CorreoController implements Serializable {
 
     public void setCorreoDao(CorreoDao correoDao) {
         this.correoDao = correoDao;
+    }
+
+    public String getTiempoSeleccionado() {
+        return tiempoSeleccionado;
+    }
+
+    public void setTiempoSeleccionado(String tiempoSeleccionado) {
+        this.tiempoSeleccionado = tiempoSeleccionado;
+    }
+
+    public LoginController getLoginController() {
+        return loginController;
+    }
+
+    public void setLoginController(LoginController loginController) {
+        this.loginController = loginController;
+    }
+
+    public List<String> getTiempos() {
+        return tiempos;
+    }
+
+    public void setTiempos(List<String> tiempos) {
+        this.tiempos = tiempos;
     }
 
 }

@@ -64,6 +64,10 @@
                 padding: 0;
                 line-height: 1.2;
             }
+            .inactiveLink {
+                pointer-events: none;
+                cursor: default;
+            }
         </style>
     </h:head>
 
@@ -78,15 +82,15 @@
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <h:link class="navbar-brand" outcome="index?faces-redirect=true">
+                    <h:link class="navbar-brand inactiveLink">
                         MAIL-KEAJ
                     </h:link>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right navbar-uppercase">
-                         <li>
+                        <li>
                             <h:form>
-                                <h:commandButton value="Crear" action="#{usuarioController.logout()}" class="btn btn-danger btnNav" />
+                                <h:commandButton value="Crear" action="#{correoController.crearCorreo()}" class="btn btn-danger btnNav" />
                             </h:form>
                         </li>
                         <li>
@@ -110,10 +114,10 @@
                         <div class="col-md-12">
                             <h:form id="users">
                                 <p:growl id="msgs" showDetail="true" life="3000"/>
-                                
+
                                 <p:dataTable id="basicDT" var="user" value="#{correoController.correos}">
                                     <f:facet name="header">
-                                       Your Mails
+                                        Your Mails
                                     </f:facet>
                                     <p:column headerText="Usuario">
                                         <h:outputText value="#{user.usuario}" />
@@ -124,7 +128,7 @@
                                     <p:column headerText="Cuerpo">
                                         <h:outputText value="#{user.cuerpo}" />
                                     </p:column>
-                                     <p:column headerText="Destinatario">
+                                    <p:column headerText="Destinatario">
                                         <h:outputText value="#{user.destinatario}" />
                                     </p:column>          
                                 </p:dataTable>
@@ -162,9 +166,9 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8" type="text/javascript"></script>
 
         <script type="text/javascript">
-                                            $(document).ready(function () {
-                                                $('[data-toggle="tooltip"]').tooltip();
-                                            });
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
 
         </script>
 

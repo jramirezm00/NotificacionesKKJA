@@ -47,6 +47,10 @@ public class SignUpController implements Serializable {
             }
             Integer validar = userDao.signUp(usuario);
             if (validar == 1) {
+                this.nombre = null;
+                this.apellido = null;
+                this.contra = null;
+                this.correo = null;
                 return "index?faces-redirect=true";
             } else {
                 return "error";
