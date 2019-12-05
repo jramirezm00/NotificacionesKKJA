@@ -13,31 +13,16 @@ import java.io.Serializable;
 import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.mail.DefaultAuthenticator;
-import org.apache.commons.mail.Email;
-import org.apache.commons.mail.SimpleEmail;
 import org.quartz.CronScheduleBuilder;
-import org.quartz.Job;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 import org.quartz.Scheduler;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
@@ -57,7 +42,7 @@ public class CorreoController implements Serializable {
 
     private int idCorreo;
 
-    private String destinatario, asunto, cuerpo;
+    private static String destinatario, asunto, cuerpo;
 
     private List<Correo> correos = new ArrayList<>();
 
@@ -68,23 +53,24 @@ public class CorreoController implements Serializable {
     private List<String> tiempos = new ArrayList<String>();
 
     @ManagedProperty("#{loginController}")
-    private LoginController loginController = new LoginController();
+    private static LoginController loginController = new LoginController();
 
     public CorreoController() {
+
+    }
+
+    @PostConstruct
+    public void init() {
         try {
+            tiempos.add("30s");
+            tiempos.add("1min");
+            tiempos.add("5min");
             HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
             idUsuario = parseInt(request.getParameter("idUsuario"));
             this.all(idUsuario);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @PostConstruct
-    public void init() {
-        tiempos.add("30s");
-        tiempos.add("1min");
-        tiempos.add("5min");
     }
 
     public void all(int id) throws SQLException, ClassNotFoundException {
@@ -100,9 +86,9 @@ public class CorreoController implements Serializable {
     }
 
     //Metodo para enviar un correo
-    public void enviarCorreo() {
+    public static void enviarCorreo() {
         ServicioCorreo servicio = new ServicioCorreo();
-        servicio.enviarCorreo(loginController.getUsuario(),this.asunto,this.cuerpo,this.destinatario);
+        servicio.enviarCorreo(loginController.getUsuario(), CorreoController.asunto, CorreoController.cuerpo, CorreoController.destinatario);
     }
 
     public void correoProgramado() {
@@ -120,17 +106,18 @@ public class CorreoController implements Serializable {
 
             System.out.println(cron);
 
-            JobDetail job = JobBuilder.newJob(Emailjob.class).withIdentity("job", "group").build();
+            JobDetail job1 = JobBuilder.newJob(Emailjob.class).withIdentity("job1", "group1").build();
 
-            Trigger trigger = TriggerBuilder.newTrigger().withIdentity("cronTrigger", "group").withSchedule(CronScheduleBuilder.cronSchedule(cron)).build();
+            Trigger trigger1 = TriggerBuilder.newTrigger().withIdentity("cronTrigger1", "group1").withSchedule(CronScheduleBuilder.cronSchedule(cron))
+                    .build();
 
-            Scheduler scheduler = new StdSchedulerFactory().getScheduler();
-            scheduler.start();
-            scheduler.scheduleJob(job, trigger);
+            Scheduler scheduler1 = new StdSchedulerFactory().getScheduler();
+            scheduler1.start();
+            scheduler1.scheduleJob(job1, trigger1);
 
             Thread.sleep(100000);
 
-            scheduler.shutdown();
+            scheduler1.shutdown();
 
             System.out.println("YA TERMINE!");
 

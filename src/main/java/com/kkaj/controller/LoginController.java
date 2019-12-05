@@ -35,7 +35,7 @@ public class LoginController implements Serializable {
     public String login() throws SQLException, ClassNotFoundException {
         UsuarioDao users = new UsuarioDao();
         if (Credentials(users)) {
-            return "/faces/front/correos?faces-redirect=true&idUsuario= " + usuario.getId();
+            return "/faces/front/correos?faces-redirect=true&idUsuario= " + this.usuario.getId();
         }
         return null;
     }
@@ -44,8 +44,8 @@ public class LoginController implements Serializable {
         FacesMessage msg;
         Usuario userLogin = users.login(this.user, this.pass);
         if (userLogin != null) {
-            usuario = userLogin;
-            id = usuario.getId();
+            this.usuario = userLogin;
+            this.id = this.usuario.getId();
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "correos", this.user);
             return true;
         }

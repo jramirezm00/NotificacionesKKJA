@@ -17,9 +17,9 @@ import org.quartz.JobExecutionException;
  */
 public class Emailjob implements Job {
 
+    @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         System.out.println("EmailJob --->>> Time is " + new Date());
-        CorreoController correo = new CorreoController();
-        correo.enviarCorreo();
+        CorreoController.enviarCorreo();
     }
 }
