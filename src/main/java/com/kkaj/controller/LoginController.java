@@ -39,6 +39,7 @@ public class LoginController implements Serializable {
         if (Credentials(users)) {
             return "/faces/front/correos?faces-redirect=true&idUsuario= " + this.usuario.getId();
         } else {
+            System.out.println("hola grupo");
             this.user = null;
             this.pass = null;
             this.errorMessage = "Failed to login!";
