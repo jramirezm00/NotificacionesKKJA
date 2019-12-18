@@ -27,7 +27,8 @@ public class LoginController implements Serializable {
 
     private int id;
 
-    //hola mundooooooo
+    private String errorMessage;
+
     public LoginController() {
 
     }
@@ -36,8 +37,12 @@ public class LoginController implements Serializable {
         UsuarioDao users = new UsuarioDao();
         if (Credentials(users)) {
             return "/faces/front/correos?faces-redirect=true&idUsuario= " + this.usuario.getId();
+        } else {
+            this.user = null;
+            this.pass = null;
+            this.errorMessage = "Failed to login!";
+            return "/faces/front/errorLogin?faces-redirect=true";
         }
-        return null;
     }
 
     private boolean Credentials(UsuarioDao users) throws SQLException, ClassNotFoundException {
@@ -59,7 +64,6 @@ public class LoginController implements Serializable {
     }
 
     public void mostrar() {
-        //SE TIENE QUE CREAR LA PANTALLA DE correos.xhtml!!
         String t = "correos.xhtml?idUsuario=" + usuario.getId();
         this.setId(usuario.getId());
         redirect(t);
@@ -110,6 +114,14 @@ public class LoginController implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
 }

@@ -79,12 +79,12 @@
                         <span class="icon-bar bar3"></span>
                     </button>
                     <h:link class="navbar-brand" outcome="index?faces-redirect=true">
-                        Volver
+                        Return
                     </h:link>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right navbar-uppercase">
-                      
+
                     </ul>
                 </div>
             </div>
@@ -93,14 +93,14 @@
         <div class="section pageContainer">
             <div class="container">
                 <div class="row">
-                   <div class="title-area">
+                    <div class="title-area">
                         <h2>Error</h2>
                         <div class="separator separator-danger">✉</div>
-                        <p class="description">¡Error a la hora de crear tu cuenta!</p>
+                        <p class="description">#{signUpController.errorMessage}</p>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                           
+
                         </div>
                     </div>
                 </div>
@@ -134,9 +134,9 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8" type="text/javascript"></script>
 
         <script type="text/javascript">
-                                            $(document).ready(function () {
-                                                $('[data-toggle="tooltip"]').tooltip();
-                                            });
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
 
         </script>
 

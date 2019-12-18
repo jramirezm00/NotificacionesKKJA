@@ -24,6 +24,8 @@ public class SignUpController implements Serializable {
 
     private String contra, correo, nombre, apellido;
 
+    private String errorMessage;
+
     public SignUpController() {
 
     }
@@ -42,8 +44,8 @@ public class SignUpController implements Serializable {
             if (correo.matches(regex)) {
                 usuario.setCorreo(this.correo);
             } else {
-                //SE OCUPA CREAR PANTALLA DE ERRORES!
-                return "error";
+                this.errorMessage = "There was a problem while creating your account, remember to use a your Gmail account!";
+                return "errorSignup?faces-redirect=true";
             }
             Integer validar = userDao.signUp(usuario);
             if (validar == 1) {
@@ -53,7 +55,8 @@ public class SignUpController implements Serializable {
                 this.correo = null;
                 return "index?faces-redirect=true";
             } else {
-                return "error";
+                this.errorMessage = "There was a internal problem, try again later!";
+                return "errorSignup?faces-redirect=true";
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,6 +94,14 @@ public class SignUpController implements Serializable {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
 }

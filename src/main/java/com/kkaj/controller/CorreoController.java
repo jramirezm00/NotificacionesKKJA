@@ -13,6 +13,7 @@ import java.io.Serializable;
 import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -52,6 +53,8 @@ public class CorreoController implements Serializable {
 
     private List<String> tiempos = new ArrayList<String>();
 
+    private static String linkReturn;
+
     @ManagedProperty("#{loginController}")
     private static LoginController loginController = new LoginController();
 
@@ -86,9 +89,19 @@ public class CorreoController implements Serializable {
     }
 
     //Metodo para enviar un correo
-    public static void enviarCorreo() {
+    public static String enviarCorreo() {
         ServicioCorreo servicio = new ServicioCorreo();
-        servicio.enviarCorreo(loginController.getUsuario(), CorreoController.asunto, CorreoController.cuerpo, CorreoController.destinatario);
+        if (CorreoController.asunto.equals("") || CorreoController.cuerpo.equals("") || CorreoController.destinatario.equals("")) {
+            String link = "crearCorreo.xhtml?faces-redirect=true&idUsuario=" + loginController.getUsuario().getId();
+            CorreoController.linkReturn = link;
+            return "failure?faces-redirect=true";
+        } else {
+            servicio.enviarCorreo(loginController.getUsuario(), CorreoController.asunto, CorreoController.cuerpo, CorreoController.destinatario);
+            String link = "correos.xhtml?faces-redirect=true&idUsuario=" + loginController.getUsuario().getId();
+            CorreoController.linkReturn = link;
+            return "success?faces-redirect=true";
+        }
+
     }
 
     public void correoProgramado() {
@@ -105,6 +118,7 @@ public class CorreoController implements Serializable {
             }
 
             System.out.println(cron);
+            System.out.println(new Date());
 
             JobDetail job1 = JobBuilder.newJob(Emailjob.class).withIdentity("job1", "group1").build();
 
@@ -115,11 +129,11 @@ public class CorreoController implements Serializable {
             scheduler1.start();
             scheduler1.scheduleJob(job1, trigger1);
 
-            Thread.sleep(100000);
+            Thread.sleep(25000);
 
             scheduler1.shutdown();
 
-            System.out.println("YA TERMINE!");
+            System.out.println("YA TERMINE! " + new Date());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -204,6 +218,14 @@ public class CorreoController implements Serializable {
 
     public void setTiempos(List<String> tiempos) {
         this.tiempos = tiempos;
+    }
+
+    public String getLinkReturn() {
+        return linkReturn;
+    }
+
+    public void setLinkReturn(String linkReturn) {
+        this.linkReturn = linkReturn;
     }
 
 }

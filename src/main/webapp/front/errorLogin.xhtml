@@ -1,9 +1,10 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <h:head>
         <meta charset="utf-8" />
         <link rel="apple-touch-icon" sizes="76x76" href="/NotificacionesKKAJ/assets/img/apple-icon.png"/>
@@ -63,9 +64,6 @@
                 padding: 0;
                 line-height: 1.2;
             }
-            .ui-selectonemenu-item.ui-selectonemenu-list-item.ui-state-highlight{
-                background: #e78b90;
-            }
         </style>
     </h:head>
 
@@ -80,22 +78,13 @@
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <h:link class="navbar-brand" outcome="correos?faces-redirect=true">
-                        MAIL-KEAJ
+                    <h:link class="navbar-brand" outcome="index?faces-redirect=true">
+                        Return
                     </h:link>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right navbar-uppercase">
-                        <li>
-                            <h:form>
-                                <h:commandButton value="Correos" action="#{correoController.verCorreos()}" class="btn btn-danger btnNav" />
-                            </h:form>
-                        </li>
-                        <li>
-                            <h:form>
-                                <h:commandButton value="Log Out" action="#{loginController.logout()}" class="btn btn-danger btnNav" />
-                            </h:form>
-                        </li>
+                      
                     </ul>
                 </div>
             </div>
@@ -104,57 +93,19 @@
         <div class="section pageContainer">
             <div class="container">
                 <div class="row">
-                    <div class="title-area-latina">
-                        <h2>Send Mail</h2>
+                   <div class="title-area">
+                        <h2>Error</h2>
                         <div class="separator separator-danger">✉</div>
+                        <p class="description">#{loginController.errorMessage}</p>
                     </div>
-                </div>
-
-                <div class="card card-member" style="outline: 5px double palevioletred;">
-                    <div class="content">
-                        <div class="form loginBox">
-                            <h:form>
-
-                                <p:separator />
-
-                                <h:panelGrid columns="1">
-                                    <p:inputText id="to" class="form-control" type="text" placeholder="To" value="#{correoController.destinatario}"/>
-                                    <p:inputText id="subject" class="form-control" type="text" placeholder="Subject" value="#{correoController.asunto}"/>
-                                </h:panelGrid>
-
-                                <p:separator />
-
-                                <p:editor widgetVar="editor" value="#{correoController.cuerpo}"/>
-
-                                <p:separator />
-
-                                <p:commandButton value="Send" class="btn btn-danger btn-fill" action="#{correoController.enviarCorreo()}"/>
-                                <p:commandButton value="Scheduled Email" class="btn btn-danger btn-fill" onclick="PF('scheduledEmail').show()"/>
-
-                            </h:form>  
+                    <div class="row">
+                        <div class="col-md-12">
+                           
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-
-        <p:dialog widgetVar="scheduledEmail" modal="true" header="New Email" width="550" showEffect="fade" hideEffect="fade" style="outline: 5px solid palevioletred;">
-            <h:form>
-                <p:outputLabel value="Time " style="padding-right: 10px;"/>
-                <h:selectOneMenu value="#{correoController.tiempoSeleccionado}" style="margin-bottom:10px;width: 90%; border-color: #d43f3a;">
-                    <f:selectItem itemLabel="" itemValue= "#{null}"/>
-                    <f:selectItems value="#{correoController.tiempos}" var="listaTiempo" itemValue="#{listaTiempo}" />
-                </h:selectOneMenu>
-
-                <p:separator />
-
-                <h:commandButton value="Send" onclick="PF('composeDlg').hide()" actionListener="#{correoController.correoProgramado()}" class="btn btn-danger" style="width: 110px !important; height: 43px !important; text-align: center !important;"/>
-                <h:commandButton value="Cancel" onclick="PF('scheduledEmail').hide()" type="button" class="btn btn-danger" style="width: 130px !important; height: 43px !important; text-align: center !important;"/>
-
-            </h:form>
-
-        </p:dialog>
 
         <footer class="footer-big footer-color-black">
             <div class="container">
@@ -183,12 +134,13 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8" type="text/javascript"></script>
 
         <script type="text/javascript">
-                    $(document).ready(function () {
-                        $('[data-toggle="tooltip"]').tooltip();
-                    });
+                                            $(document).ready(function () {
+                                                $('[data-toggle="tooltip"]').tooltip();
+                                            });
 
         </script>
 
     </h:body>
+
 </html>
 

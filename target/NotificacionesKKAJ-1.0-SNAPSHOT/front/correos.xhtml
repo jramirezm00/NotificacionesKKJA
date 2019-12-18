@@ -113,22 +113,21 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h:form id="users">
-                                <p:growl id="msgs" showDetail="true" life="3000"/>
 
                                 <p:dataTable id="basicDT" var="user" value="#{correoController.correos}">
                                     <f:facet name="header">
                                         Your Mails
                                     </f:facet>
-                                    <p:column headerText="Usuario">
+                                    <p:column headerText="User">
                                         <h:outputText value="#{user.usuario}" />
                                     </p:column>
-                                    <p:column headerText="Asunto">
+                                    <p:column headerText="Subject">
                                         <h:outputText value="#{user.asunto}" />
                                     </p:column>
-                                    <p:column headerText="Cuerpo">
+                                    <p:column headerText="Body">
                                         <h:outputText value="#{user.cuerpo}" />
                                     </p:column>
-                                    <p:column headerText="Destinatario">
+                                    <p:column headerText="To">
                                         <h:outputText value="#{user.destinatario}" />
                                     </p:column>          
                                 </p:dataTable>

@@ -114,6 +114,9 @@
                     <div class="content">
                         <div class="form loginBox">
                             <h:form>
+
+                                <p:separator />
+
                                 <h:panelGrid columns="1">
                                     <p:inputText id="to" class="form-control" type="text" placeholder="To" value="#{correoController.destinatario}"/>
                                     <p:inputText id="subject" class="form-control" type="text" placeholder="Subject" value="#{correoController.asunto}"/>
@@ -139,15 +142,15 @@
         <p:dialog widgetVar="scheduledEmail" modal="true" header="New Email" width="550" showEffect="fade" hideEffect="fade" style="outline: 5px solid palevioletred;">
             <h:form>
                 <p:outputLabel value="Time " style="padding-right: 10px;"/>
-                <p:selectOneMenu value="#{correoController.tiempoSeleccionado}" style="margin-bottom:10px;width: 90%; border-color: #d43f3a; ">
+                <h:selectOneMenu value="#{correoController.tiempoSeleccionado}" style="margin-bottom:10px;width: 90%; border-color: #d43f3a;">
                     <f:selectItem itemLabel="" itemValue= "#{null}"/>
                     <f:selectItems value="#{correoController.tiempos}" var="listaTiempo" itemValue="#{listaTiempo}" />
-                </p:selectOneMenu>
+                </h:selectOneMenu>
 
                 <p:separator />
 
-                <p:commandButton value="Send" onclick="PF('composeDlg').hide()" actionListener="#{correoController.correoProgramado()}" class="btn btn-danger" style="width: 110px !important; height: 43px !important; text-align: center !important;"/>
-                <p:commandButton value="Cancel" onclick="PF('scheduledEmail').hide()" type="button" class="btn btn-danger" style="width: 130px !important; height: 43px !important; text-align: center !important;"/>
+                <h:commandButton value="Send" onclick="PF('composeDlg').hide()" actionListener="#{correoController.correoProgramado()}" class="btn btn-danger" style="width: 110px !important; height: 43px !important; text-align: center !important;"/>
+                <h:commandButton value="Cancel" onclick="PF('scheduledEmail').hide()" type="button" class="btn btn-danger" style="width: 130px !important; height: 43px !important; text-align: center !important;"/>
 
             </h:form>
 
